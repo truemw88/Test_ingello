@@ -135,8 +135,8 @@ class TaskController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
-                $model->icon = UploadedFile::getInstance($model, 'icon');
-                $model->upload();
+//                $model->icon = UploadedFile::getInstance($model, 'icon');
+//                $model->upload();
 //            de($model->icon);
 //            }
             !$model->validate() ? de($model->errors) : $model->save();
