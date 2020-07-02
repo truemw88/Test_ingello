@@ -19,17 +19,17 @@ class TaskController extends Controller
     /**
      * {@inheritdoc}
      */
-//    public function behaviors()
-//    {
-//        return [
-//            'verbs' => [
-//                'class' => VerbFilter::className(),
-//                'actions' => [
-//                    'delete' => ['POST'],
-//                ],
-//            ],
-//        ];
-//    }
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
+    }
 
     public function actions()
     {
@@ -108,8 +108,10 @@ class TaskController extends Controller
     public function actionCreate()
     {
         $model = new Task();
-        $states  = State::getState();
+        isset($_POST['state_id']) ? $model->state_id = $_POST['state_id'] : false;
+        $states = State::getState();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
             return $this->redirect(['/state/index']);
         }
 
@@ -129,28 +131,18 @@ class TaskController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $states  = State::getState();
-
+        $states = State::getState();
 
         if ($model->load(Yii::$app->request->post())) {
-            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
 
-            if (!$model->upload()) {
-               de('ne chetko');
-                // file is uploaded successfully
-            }
+                $model->icon = UploadedFile::getInstance($model, 'icon');
+                $model->upload();
+//            de($model->icon);
+//            }
+            !$model->validate() ? de($model->errors) : $model->save();
 
-            if (!$model->validate()) {
-                de('dwa');
-                echo 'dwa';
-                de($model->errors);
-            }
-            de($model->icon);
-            $model->save();
-            de( $model);
             return $this->redirect(['/state/index']);
         }
-
 
         return $this->render('update', [
             'model' => $model,

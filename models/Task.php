@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\web\UploadedFile;
+
 /**
  * This is the model class for table "task".
  *
@@ -39,7 +40,8 @@ class Task extends \yii\db\ActiveRecord
             [['name'], 'string', 'max' => 55],
             [['description'], 'string', 'max' => 255],
 //            [['icon'], 'file', 'extensions' => 'png, jpg', 'skipOnEmpty' => true],
-            [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
+            [['icon'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
+            [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
             [['state_id'], 'exist', 'skipOnError' => true, 'targetClass' => State::className(), 'targetAttribute' => ['state_id' => 'id']],
         ];
     }
@@ -62,14 +64,15 @@ class Task extends \yii\db\ActiveRecord
     public function upload()
     {
         if ($this->validate()) {
-
-            $this->imageFile->saveAs('image');
-
+            $this->icon->saveAs($_SERVER['DOCUMENT_ROOT'].'/image'
+//                . $this->icon->baseName . '.' . $this->icon->extension
+            );
             return true;
         } else {
-            return false;
+            de($this->errors);
         }
     }
+
     /**
      * Gets query for [[State]].
      *

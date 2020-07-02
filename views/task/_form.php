@@ -20,7 +20,7 @@ $arrayStates = ArrayHelper::map(
 <?php $form = ActiveForm::begin(); ?>
 <div class="task-form">
     <div class="col-md-6 block">
-        <?= $form->field($model, 'imageFile')->widget(FileInput::classname(), [
+        <?= $form->field($model, 'icon')->widget(FileInput::classname(), [
             'options' => ['accept' => 'image/*'],
             'pluginOptions' => [
 //                'uploadUrl' => Url::to(['/task/file-upload']),
