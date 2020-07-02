@@ -30,6 +30,7 @@ class State extends \yii\db\ActiveRecord
         return [
             [['name'], 'required'],
             [['order'], 'integer'],
+            [['order'], 'default', 'value' => 1],
             [['name'], 'string', 'max' => 55],
         ];
     }

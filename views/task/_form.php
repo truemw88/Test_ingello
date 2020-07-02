@@ -17,28 +17,29 @@ $arrayStates = ArrayHelper::map(
 
 
 
-<?php $form = ActiveForm::begin(); ?>
+<?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 <div class="task-form">
     <div class="col-md-6 block">
-        <?= $form->field($model, 'icon')->widget(FileInput::classname(), [
-            'options' => ['accept' => 'image/*'],
-            'pluginOptions' => [
-//                'uploadUrl' => Url::to(['/task/file-upload']),
-//                'uploadExtraData' => [
-//                    'album_id' => 20,
-//                    'cat_id' => 'Nature'
-//                ]
-                'showPreview' => true,
-                'showCaption' => false,
-                'showRemove' => false,
-                'showUpload' => false,
-                'showBrowse' => false,
-                'browseOnZoneClick' => true,
-
-                'initialPreviewAsData'=>true,
-                'allowedFileExtensions'=>['jpg','jpeg','gif','png'],
-            ]
-        ]); ?>
+        <?= $form->field($model, 'icon')->fileInput() ?>
+<!--        --><?//= $form->field($model, 'icon')->widget(FileInput::classname(), [
+//            'options' => ['accept' => 'image/*'],
+//            'pluginOptions' => [
+////                'uploadUrl' => Url::to(['/task/file-upload']),
+////                'uploadExtraData' => [
+////                    'album_id' => 20,
+////                    'cat_id' => 'Nature'
+////                ]
+//                'showPreview' => true,
+//                'showCaption' => false,
+//                'showRemove' => false,
+//                'showUpload' => false,
+//                'showBrowse' => false,
+//                'browseOnZoneClick' => true,
+//
+//                'initialPreviewAsData'=>true,
+//                'allowedFileExtensions'=>['jpg','jpeg','gif','png'],
+//            ]
+//        ]); ?>
 
 
         <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>

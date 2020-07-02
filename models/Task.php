@@ -37,6 +37,7 @@ class Task extends \yii\db\ActiveRecord
         return [
             [['name', 'state_id'], 'required'],
             [['state_id', 'priority'], 'integer'],
+            [['priority'], 'default', 'value' => 1],
             [['name'], 'string', 'max' => 55],
             [['description'], 'string', 'max' => 255],
 //            [['icon'], 'file', 'extensions' => 'png, jpg', 'skipOnEmpty' => true],
@@ -64,13 +65,13 @@ class Task extends \yii\db\ActiveRecord
     public function upload()
     {
         if ($this->validate()) {
-            $this->icon->saveAs($_SERVER['DOCUMENT_ROOT'].'/image'
+//            de('dwa');
+            $this->icon->saveAs('image'
 //                . $this->icon->baseName . '.' . $this->icon->extension
             );
             return true;
-        } else {
-            de($this->errors);
         }
+        return false;
     }
 
     /**

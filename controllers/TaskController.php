@@ -134,11 +134,13 @@ class TaskController extends Controller
         $states = State::getState();
 
         if ($model->load(Yii::$app->request->post())) {
+            if (!empty($model->icon)) {
+                $model->icon = UploadedFile::getInstance($model, 'icon');
+                if ($model->upload() === false) {
+                    return 'не заебись';
+                }
+            }
 
-//                $model->icon = UploadedFile::getInstance($model, 'icon');
-//                $model->upload();
-//            de($model->icon);
-//            }
             !$model->validate() ? de($model->errors) : $model->save();
 
             return $this->redirect(['/state/index']);
